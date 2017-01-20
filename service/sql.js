@@ -1,6 +1,9 @@
 
 var Async = require('async');
+
 var Crate = require('node-crate');
+//TODO: Consider switching to https://www.npmjs.com/package/cratejs
+
 var Utils = require('./utils');
 var Sdk = require('../sdk/bugl-reporter-sdk.js');
 
@@ -15,13 +18,9 @@ function validateRecord(record, requiredFields) {
 		//Create GUID
 		record.id = Sdk.makeUid();
 	}
+	
+	record = Utils.underscoreObject(record);
 
-	if (record.value) {
-		record.textValue = record.value.toString();
-	}
-	if (!record.numberValue && !isNaN(record.textValue)) {
-		record.numberValue = Number(record.textValue);
-	}	
 	if (!record.timestamp) {
 		record.timestamp = new Date().getTime();
 	}
@@ -88,6 +87,14 @@ exports.getOne = function(table, id, callback) {
 			callback(null, data.json[0])
 		})
 		.error(callback);
+}
+
+exports.updateOne = function(table, id, patchData, callback) {
+	
+	Crate.update (table, patchData, "id='"+id+"'").success (function(data) {
+		callback(null, data)
+	})
+	.error(callback);
 }
 
 exports.query = function(query, paramValues, callback) {
