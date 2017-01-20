@@ -1,11 +1,11 @@
 {
-  "name": "bugl-reports-client",
-  "homepage": "ls",
+  "name": "bugle_report_client_demo",
+  "homepage": "https://github.com/bazmatic/bugle-reports",
   "authors": [
-    "Barry Earsman"
+    "bazmatic"
   ],
-  "description": "",
-  "main": "",
+  "description": "Demo of the bower bugle-reports-client component",
+  "main": "test.html",
   "license": "MIT",
   "private": true,
   "ignore": [
@@ -14,9 +14,5 @@
     "bower_components",
     "test",
     "tests"
-  ],
-  "dependencies": {
-    "google-chart": "GoogleWebComponents/google-chart#^1.1.1",
-    "iron-ajax": "PolymerElements/iron-ajax#^1.4.3"
-  }
+  ]
 }
