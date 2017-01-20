@@ -3,16 +3,10 @@
         <script src="./bower_components/webcomponentsjs/webcomponents.min.js"></script>
         <!--link rel="import" href="./webcomponents/bugl-base-chart/bugl-base-chart.html" /-->
         <link rel="import" href="./bower_components/google-chart/google-chart.html" />
-        <link rel="import" href="./bower_components/bugl-reports-client/webcomponents/bugl-sleep-chart/bugl-sleep-chart.html" />
+        <link rel="import" href="./bugl-sleep-chart-example.html" />
 
     </head>
     <body>
-          <google-chart
-              type='pie'
-              options='{"title": "Sleep today", "pieHole": 0.4, "slices":{ "0": {"color": "blue"}, "1":{"color": "transparent"}}}'
-              cols='[{"label":"Activity", "type":"string"}, {"label": "hours", "type": "number"}]'
-              rows='[["sleep", 8],["awake", 24]]'
-          ></google-chart>
-          <bugl-sleep-chart color="green" remainder-color="silver"></bugl-donut-chart>
+          <bugl-sleep-chart url="http://45.79.83.93:8714/run/159904dc12e-5e422?parameters=partner1" color="green" remainder-color="#ccc"></bugl-donut-chart>
     </body>
 </html>

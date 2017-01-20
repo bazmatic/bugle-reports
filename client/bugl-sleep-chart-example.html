@@ -1,0 +1,56 @@
+<link rel="import" href="./bower_components/polymer/polymer.html" />
+<link rel="import" href="./bower_components/bugl-reports-client/webcomponents/bugl-donut-chart/bugl-donut-chart.html" />
+<dom-module id="bugl-sleep-chart">
+    <template>
+        <div>
+            <bugl-donut-chart title={{title}} url="{{url}}" max-value="8" on-data="onData" color="{{color}}" remainder-color="{{remainderColor}}"></bugl-donut-chart>
+        </div>
+    </template> 
+    
+    <style>
+        
+    </style>
+    
+    <script>
+
+        /*global Polymer*/
+        Polymer({
+            is: "bugl-sleep-chart",
+            properties: {
+                
+                title: {
+                    type: String,
+                    value: "Sleep"
+                },
+
+                color: {
+                    type: String,
+                    value: "gray"
+                },
+                
+                remainderColor: {
+                    type: String,
+                    value: "silver"
+                },
+                
+                url: {
+                    type: String,
+                    value: ""
+                }
+                
+            },
+            
+            ready: function() {
+
+            },
+            
+
+            onData: function(e, data) {
+                e.target.setResult(data + " hours");
+            }
+            
+        
+        });
+        
+    </script>
+</dom-module>
