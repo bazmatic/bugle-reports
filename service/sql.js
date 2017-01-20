@@ -9,19 +9,18 @@ Crate.connect ('localhost', 4200);
 exports.Crate = Crate;
 
 
+
+
+
 function validateRecord(record, requiredFields) {
 
 	if (!record.id) {
 		//Create GUID
 		record.id = Sdk.makeUid();
 	}
+	
+	record = Utils.underscoreObject(record);
 
-	if (record.value) {
-		record.textValue = record.value.toString();
-	}
-	if (!record.numberValue && !isNaN(record.textValue)) {
-		record.numberValue = Number(record.textValue);
-	}	
 	if (!record.timestamp) {
 		record.timestamp = new Date().getTime();
 	}

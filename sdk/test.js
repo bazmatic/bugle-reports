@@ -1,7 +1,7 @@
-var Sdk = require('./newnrg-reporter-sdk.js');
-
-var client = new Sdk.Client({host:'45.79.83.93', port: 8081});
-client.createDataType('questionnaire', function(err, data) {
+var Sdk = require('./bugl-reporter-sdk.js');
+console.log("Hello");
+var client = new Sdk.Client({host:'localhost', port: 8714});
+client.createDataType('health', function(err, data) {
     if (err) {
         console.error(err);
     }
@@ -9,7 +9,7 @@ client.createDataType('questionnaire', function(err, data) {
         console.log(JSON.stringify(data));
     }
 });
-
+/*
 client.addRecord('questionnaire', 
     {
         "program_id": "ltwl",
@@ -27,4 +27,4 @@ client.addRecord('questionnaire',
             console.log(JSON.stringify(data));
         }       
     }
-)
+)*/

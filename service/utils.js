@@ -43,3 +43,43 @@ function handleResponse(err, data, res, errCode)
 exports.handleResponse = handleResponse;
 
 exports.PORT = 8714;
+
+
+function underscoreString(s) {
+	var result = (s.replace(/\.?([A-Z]+)/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, ""));
+	console.log(result);
+	return result;
+}
+exports.underscoreString = underscoreString;
+
+function underscoreObject (obj) {
+	var s = JSON.stringify(obj, function (key, value) {
+	  if (value && typeof value === 'object') {
+	    var replacement = {};
+	    for (var k in value) {
+	      if (Object.hasOwnProperty.call(value, k)) {
+	        replacement[underscoreString(k)] = value[k];
+	      }
+	    }
+	    return replacement;
+	  }
+	  return value;
+	});	
+	return JSON.parse(s);
+	
+}
+exports.underscoreObject = underscoreObject;
+
+function traverse(o, func) {
+    for (var i in o) {
+        
+        if (o[i] !== null) {
+        	if (typeof(o[i])=="object") {
+            	traverse(o[i],func);
+        	}
+        	else {
+        		func.apply(this,[i,o[i]]);  	
+        	}
+        }
+    }
+}

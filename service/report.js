@@ -31,6 +31,11 @@ exports.post = function(req, res) {
 
 }
 
+exports.put = function(req, res) {
+
+
+}
+
 exports.get = function(req, res) {
     Sql.getOne(TABLE_NAME, req.params.id, function(err, data) {
         Utils.handleResponse(err, data, res, 500);
@@ -56,7 +61,7 @@ exports.run = function(req, res) {
         },
         
         function _runReport(callback) {
-            var paramValues = ["partner1"];//;(req.query.parameters).split(",");
+            var paramValues = req.query.parameters.split(",");
             console.log("Querying ", reportSchema.query );
             Sql.query(reportSchema.query, paramValues, function(err, data) {
                 if (data) {

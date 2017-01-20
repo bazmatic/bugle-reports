@@ -31,6 +31,8 @@ api.post('/record/:dataType', Record.post);
 
 //Post a report
 api.post('/report', Report.post);
+api.put('/report', Report.put);
+
 
 api.get('/report/:id', Report.get);
 
