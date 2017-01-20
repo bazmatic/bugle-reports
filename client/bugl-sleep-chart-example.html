@@ -3,7 +3,7 @@
 <dom-module id="bugl-sleep-chart">
     <template>
         <div>
-            <bugl-donut-chart title={{title}} url="{{url}}" max-value="8" on-data="onData" color="{{color}}" remainder-color="{{remainderColor}}"></bugl-donut-chart>
+            <bugl-donut-chart id="sleep" title="{{title}}" url="{{url}}" max-value="{{goal}}" on-data="onData" color="{{color}}" remainder-color="{{remainderColor}}"></bugl-donut-chart>
         </div>
     </template> 
     
@@ -36,6 +36,11 @@
                 url: {
                     type: String,
                     value: ""
+                },
+
+                goal: {
+                    type: Number,
+                    value: 8
                 }
                 
             },
