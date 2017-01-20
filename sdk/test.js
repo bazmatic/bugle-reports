@@ -1,5 +1,4 @@
 var Sdk = require('./bugl-reporter-sdk.js');
-console.log("Hello");
 var client = new Sdk.Client({host:'localhost', port: 8714});
 client.createDataType('health', function(err, data) {
     if (err) {

@@ -32,7 +32,9 @@ exports.post = function(req, res) {
 }
 
 exports.put = function(req, res) {
-
+    Sql.updateOne(TABLE_NAME, req.params.id, req.body, function(err, data) {
+        Utils.handleResponse(err, data, res, 500);
+    })
 
 }
 

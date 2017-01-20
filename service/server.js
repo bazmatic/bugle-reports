@@ -20,7 +20,7 @@ api.set('port', Utils.PORT);
 
 api.get('/', function(req, res)
 {
-	res.status(200).send("newNRG Reporter 0.1");
+	res.status(200).send("Bugle Reporter");
 });
 
 //Create a new table
@@ -29,23 +29,25 @@ api.post('/dataType/:name', DataType.post);
 //Post a record
 api.post('/record/:dataType', Record.post);
 
-//Post a report
+//Create a report
 api.post('/report', Report.post);
-api.put('/report', Report.put);
 
-
+//Update a report
 api.get('/report/:id', Report.get);
 
+//Get a report
+api.put('/report/:id', Report.put);
+
+//Run a report
 api.get('/run/:id', Report.run);
 
-//Start server
+//=== Start server
 Http.createServer(api).listen(Utils.PORT);
 console.log("Web service listening on", Utils.PORT);
 
 //Exception safety net
 process.on('uncaughtException', function(err) {
-	// handle the error safely
-	console.log("SAFETY NET", err.stack);
+	console.log("Unhandled error:", err.stack);
 });
 
 

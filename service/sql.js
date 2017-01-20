@@ -1,15 +1,15 @@
 
 var Async = require('async');
+
 var Crate = require('node-crate');
+//TODO: Consider switching to https://www.npmjs.com/package/cratejs
+
 var Utils = require('./utils');
 var Sdk = require('../sdk/bugl-reporter-sdk.js');
 
 
 Crate.connect ('localhost', 4200);
 exports.Crate = Crate;
-
-
-
 
 
 function validateRecord(record, requiredFields) {
@@ -87,6 +87,14 @@ exports.getOne = function(table, id, callback) {
 			callback(null, data.json[0])
 		})
 		.error(callback);
+}
+
+exports.updateOne = function(table, id, patchData, callback) {
+	
+	Crate.update (table, patchData, "id='"+id+"'").success (function(data) {
+		callback(null, data)
+	})
+	.error(callback);
 }
 
 exports.query = function(query, paramValues, callback) {
