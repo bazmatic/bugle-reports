@@ -27,8 +27,8 @@ exports.post = function(req, res) {
         function(err) {
            Utils.handleResponse(err, result, res, 500);
         }
-    );
-
+    );	    
+	
 }
 
 exports.put = function(req, res) {
@@ -49,8 +49,12 @@ exports.run = function(req, res) {
     Async.series([
         function _getReport(callback) {
             Sql.getOne(TABLE_NAME, req.params.id, function(err, data) {
-                if (data) {
+                if (err) {
+                    callback(err);
+                }
+                else if (data) {
                     reportSchema = data;
+                    callback(err);
                     
                 }
                 else {
@@ -58,7 +62,7 @@ exports.run = function(req, res) {
                     callback("Report not found");
                     
                 }
-                callback(err);
+                
             })           
         },
         

@@ -79,7 +79,9 @@ exports.insertSingle = function(table, record, requiredFields, callback) {
 }
 
 exports.getOne = function(table, id, callback) {
-	Crate.execute('select * from ' + table + ' where id = ?', [id])
+	var queryStr = 'select * from ' + table + ' where id = ?';
+	console.log('queryStr:', queryStr);
+	Crate.execute(queryStr, [id])
 		.success(function(data){
 			if (data.rows.length == 0) {
 				callback("Record not found", []);

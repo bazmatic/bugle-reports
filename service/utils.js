@@ -1,7 +1,7 @@
 var allowCrossDomain = function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS,PATCH,FILE');
-	res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token');
+	res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token, X-Requested-With');
 	//res.header('Access-Control-Allow-Headers', '*');//'Content-Type,userId,token');
 
 	next();
@@ -41,6 +41,29 @@ function handleResponse(err, data, res, errCode)
 	}
 }
 exports.handleResponse = handleResponse;
+
+exports.validateRequest = function(req, res, next) {
+	if (req.headers) {
+		if (req.headers['content-type']) {
+			if (req.headers['content-type'].indexOf('application/json') > -1) {
+				next();
+
+			}
+			else {
+				handleResponse("Incorrect 'content-type' header. Correct value: 'application/json'", null, res, 400);
+			}
+		}
+		else {
+			handleResponse("Missing 'content-type' header. Ensure the request includes header 'content-type: application/json'", null, res, 400);
+		}
+	}
+	else {
+		handleResponse("No headers. Ensure the request includes header 'content-type: application/json'", null, res, 400);
+	}
+
+}
+
+
 
 exports.PORT = 8714;
 
