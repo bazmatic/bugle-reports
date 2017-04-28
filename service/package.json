@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "async": "^2.3.0",
     "body-parser": "^1.17.1",
     "express": "^4.14.0",
     "node-crate": "^1.0.26"
