@@ -5,7 +5,7 @@ var Crate = require('node-crate');
 //TODO: Consider switching to https://www.npmjs.com/package/cratejs
 
 var Utils = require('./utils');
-//var Sdk = require('../sdk/bugl-reporter-sdk.js');
+var Sdk = require('../sdk/bugl-reporter-sdk.js');
 
 
 Crate.connect ('localhost', 4200);

@@ -6,8 +6,10 @@ var requiredFields = [];// ['program_id', 'custodian', 'contributor', 'item_id',
 //var otherFields = ['id', 'text_value', 'number_value', 'timestamp'];
 
 exports.post = function(req, res) {
+	
 	var dataType = req.params.dataType;
 	var record = req.body;
+	console.log('record.post()', dataType);
 	
 	var validation = Sql.validateRecord(record, requiredFields);
 	if (validation.valid) {

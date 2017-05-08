@@ -43,6 +43,7 @@ function handleResponse(err, data, res, errCode)
 exports.handleResponse = handleResponse;
 
 exports.validateRequest = function(req, res, next) {
+	console.log("validateRequest()");
 	if (req.headers) {
 		if (req.headers['content-type']) {
 			if (req.headers['content-type'].indexOf('application/json') > -1) {

@@ -2,6 +2,7 @@ var Sql = require('./sql.js');
 var Utils = require('./utils.js');
 
 exports.post = function(req, res) {
+    console.log("dataType.post()");
     
     var tableSchema = {
         id: "string primary key"
