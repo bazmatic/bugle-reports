@@ -1,6 +1,6 @@
 var Sql = require('./sql.js');
 var Utils = require('./utils.js');
-var Sdk = require('../sdk/bugl-reporter-sdk.js')
+//var Sdk = require('../sdk/bugl-reporter-sdk.js')
 
 var requiredFields = [];// ['program_id', 'custodian', 'contributor', 'item_id', 'action', 'overall_start'];
 //var otherFields = ['id', 'text_value', 'number_value', 'timestamp'];

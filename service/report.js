@@ -2,7 +2,7 @@ var Async = require('async');
 
 var Sql = require('./sql.js');
 var Utils = require('./utils.js');
-var Sdk = require('../sdk/bugl-reporter-sdk.js');
+//var Sdk = require('../sdk/bugl-reporter-sdk.js');
 
 var requiredFields = ['name', 'query', 'parameters'];
 var TABLE_NAME = 'bugl_reports';
