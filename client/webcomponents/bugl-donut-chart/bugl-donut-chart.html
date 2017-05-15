@@ -1,0 +1,131 @@
+<link rel="import" href="../../polymer/polymer.html" />
+<link rel="import" href="../../google-chart/google-chart.html" />
+<link rel="import" href="../../iron-ajax/iron-ajax.html" />
+<dom-module id="bugl-donut-chart">
+    <template>
+        <div>
+            <h2>{{title}}</h2>
+            <google-chart
+                type="pie"
+                cols='{{cols}}'
+                options='{{options}}'
+                rows='{{rows}}'>
+            </google-chart>
+            <div class="bugl-total">{{_result}}</div>
+            <iron-ajax
+                auto
+                url={{url}}
+                handle-as="json"
+                on-response="handleResponse"
+                debounce-duration="300">
+            </iron-ajax>
+        </div>
+    </template> 
+    
+    <style>
+        
+    </style>
+    
+    <script>
+        /*
+              options='{"title": "Sleep today", "pieHole": 0.4, "slices":{ "0": {"color": "blue"}, "1":{"color": "transparent"}}}'
+              cols='[{"label":"Activity", "type":"string"}, {"label": "hours", "type": "number"}]'
+              rows='[["sleep", 8],["awake", 24]]'
+        */
+
+        /*global Polymer*/
+        Polymer({
+            is: "bugl-donut-chart",
+            properties: {
+                
+                
+
+                title: {
+                    type: String,
+                    value: "Chart"
+                },
+                cols: {
+                    type: Array,
+                    value: [{'label': 'label', 'type': 'string'},{'label': 'value', 'type': 'number'}]
+                },
+                rows: {
+                    type: Array,
+                    value: []
+                },
+
+                color: {
+                    type: String,
+                    value: "gray"
+                },
+                
+                remainderColor: {
+                    type: String,
+                    value: "transparent"
+                },
+                
+                url: {
+                    type: String,
+                    value: ""
+                },
+                
+                maxValue: {
+                    type: Number,
+                    value: 100.0
+                },
+
+                options: {
+                    type: Object,
+                    value: {
+                        pieHole: 0.4,
+                        pieSliceText: "none",
+                        legend: "none"
+                    },
+                    
+                },
+                
+                _total: {
+                    type: Number,
+                    value: 0.0
+                },
+                
+                _result: {
+                    type: String,
+                    value: ""
+                }
+                
+            },
+            
+            ready: function() {
+                if (this.color) {
+                    this.options.slices = {
+                        0: { color: this.color },
+                        1: { color: this.remainderColor }
+                    }
+                }
+            },
+            
+            handleResponse: function(e) {
+                var data = e.detail.response;
+                if (data.rows && data.rows.length) {
+                    var mainSlice = data.rows[0];
+                    this._total = mainSlice[1];
+                    var donutRows = [];
+                    donutRows.push(mainSlice);
+                    if (mainSlice[1]<this.maxValue) {
+                        donutRows.push(['remainder', this.maxValue - this._total]); //Second row represents the remainder
+                    }
+                    this.set('rows', donutRows);
+                    this.setResult(this._total.toString());
+                    this.fire('data', this._total);
+                }
+            },
+            
+            setResult: function(value) {
+                this.set('_result', value);
+            }
+            
+        
+        });
+        
+    </script>
+</dom-module>

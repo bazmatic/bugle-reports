@@ -1,0 +1,108 @@
+<link rel="import" href="./bower_components/polymer/polymer.html" />
+<link rel="import" href="./bower_components/google-chart/google-chart.html" />
+<link rel="import" href="./bower_components/iron-ajax/iron-ajax.html" />
+
+<dom-module id="newnrg-bargraph">
+    <template>
+        <div>
+            <google-chart
+                    type="bar"
+                    cols='{{cols}}'
+                    options='{{options}}'
+                    rows='{{rows}}'>
+            </google-chart>
+            <iron-ajax
+                    auto
+                    url={{url}}
+                    handle-as="json"
+                    on-response="handleResponse"
+                    debounce-duration="300">
+            </iron-ajax>
+        </div>
+    </template>
+
+    <style>
+
+    </style>
+
+    <script>
+
+        /*global Polymer*/
+        Polymer({
+            is: "newnrg-bargraph",
+            properties: {
+
+                title: {
+                    type: String,
+                    value: "Graph"
+                },
+
+                url: {
+                    type: String,
+                    value: ""
+                },
+
+                hAxisTitle: "Amount",
+                vAxisTitle: "Item",
+
+                options: {
+                    value: {
+                        hAxis: {
+                            title: ""
+                        },
+                        vAxis: {
+                            title: ""
+
+                        },
+                        legend: "none",
+                        bar: {groupWidth: '100%'},
+                        chartArea: {width: '80%'},
+                        height: 500
+                    }
+                }
+            },
+
+            ready: function() {
+
+            },
+
+
+            onData: function(e, data) {
+
+            },
+
+            ready: function() {
+                this.options.title = this.title;
+                this.options.hAxis.title = this.hAxisTitle;
+                this.options.vAxis.title = this.vAxisTitle;
+            },
+
+            handleResponse: function(e) {
+
+                var data = e.detail.response;
+                this.set('options.height', data.rows.length * 30);
+                this.set('title', data.title);
+                data.rows = data.rows.map(function(item) {
+                    item[0] = item[0].toString();
+                    return item;
+
+                });
+                this.set('rows', data.rows);
+                if (data.cols.length !== data.colTypes.length) throw "Invalid columns";
+
+                var chartCols = [];
+                for (var i=0; i<data.colTypes.length; i++) {
+                    var colType = data.colTypes[i].toString();
+                    if (i == 0) {
+                        colType = "string";
+                    }
+                    else role = "data";
+                    chartCols.push({ id: "", label: data.cols[i], type: colType})
+                }
+                this.set('cols', chartCols);
+            }
+
+        });
+
+    </script>
+</dom-module>
