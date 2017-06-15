@@ -1,12 +1,12 @@
-<link rel="import" href="../../polymer/polymer.html" />
-<link rel="import" href="../../google-chart/google-chart.html" />
-<link rel="import" href="../../iron-ajax/iron-ajax.html" />
+<link rel="import" href="../../bower_components/polymer/polymer.html" />
+<link rel="import" href="../../bower_components/google-chart/google-chart.html" />
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html" />
 <dom-module id="bugl-base-chart">
     <template>
         <div>
             <h2>{{title}}</h2>
             <google-chart
-                type="pie"
+                type="{{type}}"
                 cols='{{cols}}'
                 options='{{options}}'
                 rows='{{rows}}'>
@@ -50,7 +50,12 @@
                 options: {
                     type: Object,
                     value: {
-                        pieHole: 0.4
+                        hAxis: {
+                            viewWindow: {
+                                min: 0,
+                                max: 20
+                            }
+                        }
                     }
                 }
             },
@@ -62,11 +67,19 @@
             handleResponse: function(e) {
                 var data = e.detail.response;
                 this.set('title', data.title);
+
+                //data.rows = data.rows.map(function(item) {
+                //    return [item[1],item[0]]
+                //});
                 this.set('rows', data.rows);
                 if (data.cols.length !== data.colTypes.length) throw "Invalid columns";
                 var chartCols = [];
                 for (var i=0; i<data.colTypes.length; i++) {
-                    chartCols.push({ label: data.cols[i], type: data.colTypes[i]})
+                    var colType = data.cols[i].toString();
+                    if (i == 0) {
+                        colType = "string";
+                    }
+                    chartCols.push({ label: colType, type: data.colTypes[i]})
                 }
                 this.set('cols', chartCols);
             }

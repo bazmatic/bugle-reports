@@ -2,11 +2,9 @@
     <head>
         <script src="./bower_components/webcomponentsjs/webcomponents.min.js"></script>
         <!--link rel="import" href="./webcomponents/bugl-base-chart/bugl-base-chart.html" /-->
-        <link rel="import" href="./bower_components/google-chart/google-chart.html" />
-        <link rel="import" href="./bugl-sleep-chart-example.html" />
-
+        <link rel="import" href="./newnrg-histogram-chart.html" />
     </head>
     <body>
-          <bugl-sleep-chart url="http://45.79.83.93:8714/run/159904dc12e-5e422?parameters=partner1" color="green" remainder-color="#ccc"></bugl-donut-chart>
+          <newnrg-histogram url="http://45.79.83.93:8714/run/ccbweek?parameters=converge" type="column" v-axis-title="Week #" h-axis-title="Total completed"></newnrg-histogram>
     </body>
 </html>
