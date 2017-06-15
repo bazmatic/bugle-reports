@@ -8,23 +8,51 @@ var requiredFields = [];// ['program_id', 'custodian', 'contributor', 'item_id',
 exports.post = function(req, res) {
 	
 	var dataType = req.params.dataType;
-	var record = req.body;
-	console.log('record.post()', dataType);
-	
-	var validation = Sql.validateRecord(record, requiredFields);
-	if (validation.valid) {
-		
-		Sql.Crate.insert(dataType, validation.record)
-			.success((data)=>{
-				Utils.handleResponse(null, validation.record, res);
-			})
-			.error((err)=>{
-				Utils.handleResponse(err, null, res, 500);
-			});
+	var successCount = 0;
+	var errs = [];
+
+	var itemList;
+	if (req.body.constructor == Object) {
+		itemList = [req.body];
 	}
 	else {
-		Utils.handleResponse("Invalid record", validation, res, 400);
+		itemList = req.body;
 	}
+	Sql.insertMulti(dataType, itemList, [], (err) =>{
+		if (err) {
+			console.error(err);
+			Utils.handleResponse(err, null, res, 500);
+		}
+		else {
+			console.log("Inserted", itemList.length);
+			Utils.handleResponse(null, {inserted: itemList.length}, res);	
+
+		}
+	});
+	
+	/*
+	itemList.forEach(function(record) {
+		var validation = Sql.validateRecord(record, requiredFields);
+		if (validation.valid) {
+
+			Sql.Crate
+				.insert(dataType, validation.record)
+				.success((data)=>{
+					successCount ++;
+				
+				})
+				.error((err)=>{
+					errs.push(err);
+				
+				});
+		}
+		else {
+			Utils.handleResponse("Invalid record", validation, res, 400);
+		}
+	});*/
+
+		
+		
 
 }
 
