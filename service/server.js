@@ -13,7 +13,7 @@ var api = Express();
 
 api.use(BodyParser.json());
 api.use(Utils.allowCrossDomain);
-api.use(Utils.logRequest);
+//api.use(Utils.logRequest);
 //api.use(Utils.validateRequest);
 
 api.set('port', Utils.PORT);

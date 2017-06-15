@@ -5,7 +5,7 @@ var Crate = require('node-crate');
 //TODO: Consider switching to https://www.npmjs.com/package/cratejs
 
 var Utils = require('./utils');
-//var Sdk = require('../sdk/bugl-reporter-sdk.js');
+var Sdk = require('../sdk/bugl-reporter-sdk.js');
 
 
 Crate.connect ('localhost', 4200);
@@ -37,12 +37,12 @@ function validateRecord(record, requiredFields) {
 }
 exports.validateRecord = validateRecord;
 
-exports.insertMulti = function(table, records, requiredFields, callback) {
+exports.insertMulti = function(table, records, requiredFields, finalCallback) {
     var result = [];
     Async.eachLimit(
         records,
         5,
-        function(record) {
+        function(record, callback) {
             var validation = validateRecord(record, requiredFields);
             Crate.insert(table, validation.record)
     			.success((data)=>{
@@ -50,11 +50,13 @@ exports.insertMulti = function(table, records, requiredFields, callback) {
     				callback(null);
     			})
     			.error((err)=>{
+    				console.error('insertMulti():', err);
     				callback(err, validation);
     			});
         },
         function(err) {
-            callback(err, result); 
+        	console.error("insertMulti()", err);
+            finalCallback(err, result); 
         }
         
         
