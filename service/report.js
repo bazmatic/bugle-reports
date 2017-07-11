@@ -69,9 +69,9 @@ exports.run = function(req, res) {
         
         function _runReport(callback) {
             var paramValues = req.query.parameters.split(",");
-            var query = reportSchema.query.replace(/`/g, "'");
-            console.log("Querying ", query );
-            Sql.query(query, paramValues, function(err, data) {
+            reportSchema.query = reportSchema.query.replace(/`/g, "'");
+             console.log("Querying ", reportSchema.query );
+            Sql.query(reportSchema.query, paramValues, function(err, data) {
                 if (data) {
                     reportData = data;
                 }
