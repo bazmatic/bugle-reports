@@ -45,6 +45,7 @@ exports.get = function(req, res) {
 }
 
 exports.run = function(req, res) {
+    console.log("report.run");
     var reportSchema, reportData, result = {}, errCode = 500;
     Async.series([
         function _getReport(callback) {
@@ -68,8 +69,9 @@ exports.run = function(req, res) {
         
         function _runReport(callback) {
             var paramValues = req.query.parameters.split(",");
-            console.log("Querying ", reportSchema.query );
-            Sql.query(reportSchema.query, paramValues, function(err, data) {
+            var query = reportSchema.query.replace(/`/g, "'");
+            console.log("Querying ", query );
+            Sql.query(query, paramValues, function(err, data) {
                 if (data) {
                     reportData = data;
                 }
@@ -78,8 +80,10 @@ exports.run = function(req, res) {
         }
     ],
     function(err) {
-
-        if (reportData && reportSchema) {
+        if (err) {
+            console.error(err);
+        }
+        else if (reportData && reportSchema) {
             result = {
                 name: reportSchema.name,
                 cols: reportData.cols,
@@ -92,6 +96,7 @@ exports.run = function(req, res) {
                 })
             }  
         }
+
 
         Utils.handleResponse(err, result, res, errCode);
     });

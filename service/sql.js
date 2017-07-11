@@ -83,14 +83,22 @@ exports.insertSingle = function(table, record, requiredFields, callback) {
 exports.getOne = function(table, id, callback) {
 	var queryStr = 'select * from ' + table + ' where id = ?';
 	console.log('queryStr:', queryStr);
+	console.log('id:', id);
 	Crate.execute(queryStr, [id])
 		.success(function(data){
 			if (data.rows.length == 0) {
 				callback("Record not found", []);
 			}
-			callback(null, data.json[0])
+			else {
+				console.log(JSON.stringify(data.json));
+				callback(null, data.json[0])
+			}
+
 		})
-		.error(callback);
+		.error(function(err) {
+			console.log("getOne: error", err);
+			callback(err);
+		});
 }
 
 exports.updateOne = function(table, id, patchData, callback) {
