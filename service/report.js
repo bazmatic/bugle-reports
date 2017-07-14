@@ -4,7 +4,7 @@ var Sql = require('./sql.js');
 var Utils = require('./utils.js');
 //var Sdk = require('../sdk/bugl-reporter-sdk.js');
 
-var requiredFields = ['name', 'query', 'parameters'];
+var requiredFields = ['name', 'sql', 'parameters'];
 var TABLE_NAME = 'bugl_reports';
 
 exports.post = function(req, res) {
@@ -69,9 +69,9 @@ exports.run = function(req, res) {
         
         function _runReport(callback) {
             var paramValues = req.query.parameters.split(",");
-            reportSchema.query = reportSchema.query.replace(/`/g, "'");
-             console.log("Querying ", reportSchema.query );
-            Sql.query(reportSchema.query, paramValues, function(err, data) {
+            reportSchema.sql = reportSchema.sql.replace(/`/g, "'");
+             console.log("Querying ", reportSchema.sql );
+            Sql.query(reportSchema.sql, paramValues, function(err, data) {
                 if (data) {
                     reportData = data;
                 }

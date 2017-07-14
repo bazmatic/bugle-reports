@@ -27,7 +27,7 @@ exports.Client = function(config) {
             callback
         );
     }
-    
+   
     this.addRecord = (dataType, data, callback) => {
 
 
@@ -115,7 +115,47 @@ exports.Client = function(config) {
 				callback(err, data);
 			}
 		);
-    },
+    }
+
+    this.updateReport = function(id, name, sql, callback) {
+		var url = this.baseUrl + '/report/' + id;
+		var paramCount = sql.split("?").length-1;
+		var postData = {
+			//id: id,
+			name: name,
+			query: sql,
+			param_count: paramCount
+		};
+
+        Request.put(
+			{
+				url: url,
+				headers: this.headers,
+				json: true,
+				body: postData,
+				timeout: 20000
+			},
+			function(err, res, data) {
+				postData.id = id;
+				callback(err, postData);
+			}
+		);
+    }
+
+    this.getReport = function(id, callback) {
+		Request.get(
+			{
+				url: this.baseUrl+'/'+id,
+				headers: this.headers,
+				json: true,
+				timeout: 20000
+			},
+			function(err, res, body)
+			{
+				callback(err, body);
+			}
+		)
+    }
 
 	this.runReport = function(id, parameterValues, callback) {
 		var parameterStr = "";
