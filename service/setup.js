@@ -6,7 +6,7 @@
             {
                 id: "string primary key",
                 name: "string",
-                query: "string"
+                sql: "string"
             }
         }
       

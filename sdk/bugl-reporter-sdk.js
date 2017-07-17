@@ -99,7 +99,7 @@ exports.Client = function(config) {
 		var postData = {
 			id: id,
 			name: name,
-			query: sql,
+			sql: sql,
 			param_count: paramCount
 		};
 
@@ -123,7 +123,7 @@ exports.Client = function(config) {
 		var postData = {
 			//id: id,
 			name: name,
-			query: sql,
+			sql: sql,
 			param_count: paramCount
 		};
 
