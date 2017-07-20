@@ -1,6 +1,6 @@
 {
   "name": "bugle-reports",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple reporting API for CrateDB",
   "main": "index.js",
   "dependencies": {
