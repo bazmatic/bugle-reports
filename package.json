@@ -2,7 +2,7 @@
   "name": "bugle-reports",
   "version": "1.0.0",
   "description": "Simple reporting API for CrateDB",
-  "main": "server.js",
+  "main": "index.js",
   "dependencies": {
     "async": "^2.3.0",
     "body-parser": "^1.17.1",
@@ -11,10 +11,6 @@
     "request": "^2.81.0"
   },
   "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
   "author": "Barry Earsman",
   "license": "ISC",
   "repository": {
