@@ -1,5 +1,6 @@
  
  var Sql = require('./sql.js');
+ exports.run = function() {
     var schemas = [
         {
             "bugl_reports": 
@@ -11,7 +12,7 @@
         }
       
     ];
-
+    console.log("Setting up Crate");
     schemas.forEach((schema)=>{
         Sql.Crate.create(schema).success(function(data) {
             console.log(JSON.stringify(data));
@@ -20,3 +21,5 @@
             console.error(err);
         })      
     });
+ }
+

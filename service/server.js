@@ -7,6 +7,7 @@ var Record = require('./record.js');
 var DataType = require('./data-type.js');
 var Report = require('./report.js');
 
+require('./setup.js').run();
 
 //=== API
 var api = Express();
