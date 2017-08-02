@@ -8,7 +8,7 @@ var Utils = require('./utils');
 var Sdk = require('../sdk/bugl-reporter-sdk.js');
 
 
-Crate.connect ('localhost', 4200);
+Crate.connect (process.env.CRATE_HOST || 'localhost', 4200);
 exports.Crate = Crate;
 
 
