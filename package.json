@@ -1,8 +1,8 @@
 {
   "name": "bugle-reports",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "version": "1.0.2",
+  "description": "Simple reporting API for CrateDB",
+  "main": "index.js",
   "dependencies": {
     "async": "^2.3.0",
     "body-parser": "^1.17.1",
@@ -11,10 +11,20 @@
     "request": "^2.81.0"
   },
   "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
   "author": "Barry Earsman",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bazmatic/bugle-reports.git"
+  },
+  "keywords": [
+    "crate",
+    "cratedb",
+    "reporting",
+    "api"
+  ],
+  "bugs": {
+    "url": "https://github.com/bazmatic/bugle-reports/issues"
+  },
+  "homepage": "https://github.com/bazmatic/bugle-reports#readme"
 }
